@@ -1,0 +1,14 @@
+@import "/node_modules/normalize.css/normalize.css";
+
+@import "modules/variables";
+@import "modules/base";
+
+.container {
+    width: 250px;
+    height: 200px;
+    border: 1px solid #720570;
+}
+
+.bar {
+    fill: #720570;
+}

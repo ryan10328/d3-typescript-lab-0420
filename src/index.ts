@@ -11,18 +11,23 @@ const dummyData = [
 const container = d3.select('svg')
     .classed('container', true);
 
-const xScale = d3.scaleBand().domain(dummyData.map(g => g.region)).rangeRound([0, 250]).padding(0.1);
-const yScale = d3.scaleLinear().domain([0, 15]).range([200, 0])
+const xScale = d3.scaleLinear()
+    .domain([0, 15])
+    .range([0, 250]);
+const yScale = d3.scaleBand()
+    .domain(dummyData.map(g => g.region))
+    .range([0, 200])
+    .padding(0.1);
 
 const bars = container.selectAll('.bar')
     .data(dummyData)
     .enter()
     .append('rect')
     .classed('bar', true)
-    .attr('width', xScale.bandwidth())
-    .attr('height', data => 200 - yScale(data.value))
-    .attr('x', data => xScale(data.region))
-    .attr('y', data => yScale(data.value));
+    .attr('width',  data => 250 - xScale(data.value))
+    .attr('height', yScale.bandwidth())
+    .attr('x', 0)
+    .attr('y', data => yScale(data.region));
 
 
 setInterval(() => {
@@ -30,11 +35,11 @@ setInterval(() => {
         item.value = Math.floor(Math.random() * 15);
     }
     bars.data(dummyData).transition().duration(500).ease(d3.easeLinear)
-        .attr('width', xScale.bandwidth())
-        .attr('height', data => 200 - yScale(data.value))
-        .attr('x', data => xScale(data.region))
-        .attr('y', data => yScale(data.value))
-        .attr('fill', getColor);
+    .attr('width',  data => 250 - xScale(data.value))
+    .attr('height', yScale.bandwidth())
+    .attr('x', 0)
+    .attr('y', data => yScale(data.region))
+    .attr('fill', getColor);
 }, 1000);
 
 

@@ -26,7 +26,7 @@ const bars = container.selectAll('.bar')
     .classed('bar', true)
     .attr('width',  data => 250 - xScale(data.value))
     .attr('height', yScale.bandwidth())
-    .attr('x', 0)
+    .attr('x', data => xScale(data.value))
     .attr('y', data => yScale(data.region));
 
 
@@ -37,7 +37,7 @@ setInterval(() => {
     bars.data(dummyData).transition().duration(500).ease(d3.easeLinear)
     .attr('width',  data => 250 - xScale(data.value))
     .attr('height', yScale.bandwidth())
-    .attr('x', 0)
+    .attr('x', data => xScale(data.value))
     .attr('y', data => yScale(data.region))
     .attr('fill', getColor);
 }, 1000);
